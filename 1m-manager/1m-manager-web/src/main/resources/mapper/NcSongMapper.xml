@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.dongyiming.mapper.NcSongMapper" >
+  <resultMap id="BaseResultMap" type="cn.dongyiming.pojo.NcSong" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="song_name" property="songName" jdbcType="VARCHAR" />
+    <result column="song_id" property="songId" jdbcType="INTEGER" />
+    <result column="song_desc" property="songDesc" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="menu_code" property="menuCode" jdbcType="INTEGER" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="singer_code" property="singerCode" jdbcType="INTEGER" />
+    <result column="singer_name" property="singerName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, song_name, song_id, song_desc, cover, menu_code, menu_name, singer_code, singer_name, 
+    create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.dongyiming.pojo.NcSongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nc_song
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from nc_song
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from nc_song
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.dongyiming.pojo.NcSongExample" >
+    delete from nc_song
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.dongyiming.pojo.NcSong" >
+    insert into nc_song (id, song_name, song_id, 
+      song_desc, cover, menu_code, 
+      menu_name, singer_code, singer_name, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{songName,jdbcType=VARCHAR}, #{songId,jdbcType=INTEGER}, 
+      #{songDesc,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, #{menuCode,jdbcType=INTEGER}, 
+      #{menuName,jdbcType=VARCHAR}, #{singerCode,jdbcType=INTEGER}, #{singerName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.dongyiming.pojo.NcSong" >
+    insert into nc_song
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="songName != null" >
+        song_name,
+      </if>
+      <if test="songId != null" >
+        song_id,
+      </if>
+      <if test="songDesc != null" >
+        song_desc,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="menuCode != null" >
+        menu_code,
+      </if>
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="singerCode != null" >
+        singer_code,
+      </if>
+      <if test="singerName != null" >
+        singer_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="songName != null" >
+        #{songName,jdbcType=VARCHAR},
+      </if>
+      <if test="songId != null" >
+        #{songId,jdbcType=INTEGER},
+      </if>
+      <if test="songDesc != null" >
+        #{songDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null" >
+        #{menuCode,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="singerCode != null" >
+        #{singerCode,jdbcType=INTEGER},
+      </if>
+      <if test="singerName != null" >
+        #{singerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.dongyiming.pojo.NcSongExample" resultType="java.lang.Integer" >
+    select count(*) from nc_song
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update nc_song
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.songName != null" >
+        song_name = #{record.songName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songId != null" >
+        song_id = #{record.songId,jdbcType=INTEGER},
+      </if>
+      <if test="record.songDesc != null" >
+        song_desc = #{record.songDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cover != null" >
+        cover = #{record.cover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuCode != null" >
+        menu_code = #{record.menuCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuName != null" >
+        menu_name = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.singerCode != null" >
+        singer_code = #{record.singerCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.singerName != null" >
+        singer_name = #{record.singerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update nc_song
+    set id = #{record.id,jdbcType=INTEGER},
+      song_name = #{record.songName,jdbcType=VARCHAR},
+      song_id = #{record.songId,jdbcType=INTEGER},
+      song_desc = #{record.songDesc,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      menu_code = #{record.menuCode,jdbcType=INTEGER},
+      menu_name = #{record.menuName,jdbcType=VARCHAR},
+      singer_code = #{record.singerCode,jdbcType=INTEGER},
+      singer_name = #{record.singerName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.dongyiming.pojo.NcSong" >
+    update nc_song
+    <set >
+      <if test="songName != null" >
+        song_name = #{songName,jdbcType=VARCHAR},
+      </if>
+      <if test="songId != null" >
+        song_id = #{songId,jdbcType=INTEGER},
+      </if>
+      <if test="songDesc != null" >
+        song_desc = #{songDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null" >
+        menu_code = #{menuCode,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="singerCode != null" >
+        singer_code = #{singerCode,jdbcType=INTEGER},
+      </if>
+      <if test="singerName != null" >
+        singer_name = #{singerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.dongyiming.pojo.NcSong" >
+    update nc_song
+    set song_name = #{songName,jdbcType=VARCHAR},
+      song_id = #{songId,jdbcType=INTEGER},
+      song_desc = #{songDesc,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      menu_code = #{menuCode,jdbcType=INTEGER},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      singer_code = #{singerCode,jdbcType=INTEGER},
+      singer_name = #{singerName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
